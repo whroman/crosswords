@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "extends": "eslint:recommended",
+  "rules": {
+    // native eslint
+    "indent": [
+        2,
+        4
+    ],
+    "linebreak-style": [
+        2,
+        "unix"
+    ],
+    "semi": [
+        2,
+        "always"
+    ]
+  },
+  "env": {
+    "browser": true
+  }
+}

@@ -1,0 +1,49 @@
+@import 'scss/foundation.scss';
+
+@include foundation-everything();
+
+#crossword {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.tile {
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    margin: 0 -1px -1px 0;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #eee;
+    float: left;
+    position: relative;
+    z-index: 0;
+
+    &.nth {
+        clear: both;
+    }
+
+    &.is-in-use {
+        border: 1px solid #000;
+        z-index: 1;
+
+        &.is-correct {
+            input {
+                background-color: #8c8;
+            }
+        }
+
+        &.is-incorrect {
+            input.ng-dirty {
+                background-color: #e88;
+            }
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            background-color: transparent;
+        }
+    }
+}
