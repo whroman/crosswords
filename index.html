@@ -85,8 +85,21 @@
                 class="button"
                 ng-click="state.ui.submitGame.action()"
             >Submit</div>
+
         </div>
         <br/>
         <br/>
+
+        <div
+            ng-if="state.ui.successModal.isVisible"
+            class="modal"
+        >
+            <div class="modal-content">
+                <br/>
+                <h2>You did it!</h2>
+                <br/>
+            </div>
+        </div>
+
     </body>
 </html>
