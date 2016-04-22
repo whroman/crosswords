@@ -1,6 +1,9 @@
 @import 'scss/foundation.scss';
-
 @include foundation-everything();
+
+$colors: (
+    'highlight': #dbd
+);
 
 body {
     text-align: center;
@@ -25,7 +28,7 @@ body {
     }
 
     &.selected {
-        background-color: #dbd;
+        background-color: map-get($colors, 'highlight');
     }
 }
 
@@ -75,5 +78,9 @@ body {
             text-align: center;
             background-color: transparent;
         }
+    }
+
+    &.belongs-to-current-word {
+        background-color: map-get($colors, 'highlight');
     }
 }

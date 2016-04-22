@@ -68,6 +68,15 @@ angular
                 $scope.currentWordID = id;
                 const word = $scope.crossword.words.get(id);
                 const { x, y } = word.collection[0];
+
+                $scope.crossword.collection.forEach((tile) => {
+                    tile.belongsToCurrentWord = false;
+                    tile.words.forEach((wordID) => {
+                        if ($scope.currentWordID === wordID) tile.belongsToCurrentWord = true;
+                    });
+                    console.log(tile.words);
+                });
+
                 focusTileByCoords(x, y);
             }
         }

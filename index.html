@@ -28,6 +28,7 @@
                     'is-in-use': tile.isInUse,
                     'is-correct': tile.isFulfilled(),
                     'is-incorrect': !tile.isFulfilled(),
+                    'belongs-to-current-word': tile.belongsToCurrentWord,
                 }"
             >
                 <div ng-if="tile.isInUse">
