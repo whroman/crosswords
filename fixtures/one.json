@@ -1,0 +1,16 @@
+{
+    "horizontal": [
+        {
+            "word": "green",
+            "location": [ 3, 7 ],
+            "clue": "Die Farbe von Basilikum."
+        }
+    ],
+    "vertical": [
+        {
+            "word": "brown",
+            "location": [ 7, 3 ],
+            "clue": "Eine typische Farbe für Lederschuhe."
+        }
+    ]
+}

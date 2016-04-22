@@ -1,5 +1,7 @@
 import angular from 'angular';
 import CrosswordGrid from './../src/models/CrosswordGrid.js';
+import content from './../fixtures/one.json';
+import { range } from 'lodash';
 import 'ng-focus-on';
 import './index.scss';
 
@@ -8,11 +10,26 @@ angular
 .controller('CrosswordCtrl', function CountCtrl(focus) {
 
     this.crossword = new CrosswordGrid(10,15);
-    const firstWord = this.crossword.setWord('cat', [0, 1, 2].map((xx) => [xx, 0]));
-    this.crossword.setWord('taco', [0,1,2,3].map((yy) => [2, yy]));
-    this.crossword.setWord('octopus', [1,2,3,4,5,6,7].map((xx) => [xx, 2]));
-    this.crossword.setWord('dog', [1,2,3].map((yy) => [4, yy]));
-    this.currentWordID = firstWord.id;
+
+    content.horizontal.forEach((item) => {
+        const { word, location } = item;
+        const startX = location[0];
+        const endX = word.length + startX;
+        const y = location[1];
+        const coords = range(startX, endX).map((xx) => [xx, y]);
+        this.crossword.setWord(word, coords);
+    });
+
+    content.vertical.forEach((item) => {
+        const { word, location } = item;
+        const startY = location[1];
+        const endY = word.length + startY;
+        const x = location[0];
+        const coords = range(startY, endY).map((yy) => [x, yy]);
+        this.crossword.setWord(word, coords);
+    });
+
+    this.currentWordID = this.crossword.words.get(0);
 
     const inputKeyBlacklist = [
         // 9,  // tab
