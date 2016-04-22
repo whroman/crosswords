@@ -47,8 +47,8 @@
                 ng-class="{
                     nth: tile.x % state.crossword.width === 0,
                     'is-in-use': tile.isInUse,
-                    'is-correct': tile.isFulfilled(),
-                    'is-incorrect': !tile.isFulfilled(),
+                    'is-correct': tile.isFulfilled() && state.ui.submitGame.hasOccurred,
+                    'is-incorrect': !tile.isFulfilled() && state.ui.submitGame.hasOccurred,
                     'belongs-to-current-word': tile.belongsToCurrentWord,
                 }"
             >
@@ -56,6 +56,7 @@
                     <input
                         type="text"
                         ng-model="tile.input"
+                        ng-focus="state.ui.handleTileFocus(tile.words)"
                         focus-on="{{'tile-' + tile.x + tile.y}}"
                         ng-keyup="state.onKeypress($event, tile)"
                         placeholder="{{tile.placeholder}}"
@@ -63,8 +64,8 @@
                 </div>
                 <div
                     class="word-number"
-                    ng-if="tile.isFirstInWord"
-                >{{ tile.isFirstInWord }}</div>
+                    ng-if="tile.isFirstInWord.length"
+                >{{ tile.isFirstInWord[0] }}</div>
             </div>
             <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
         </div>
@@ -75,6 +76,11 @@
                 class="button"
                 ng-click="state.ui.showAllTiles.action()"
             >Solve the Board</div>
+
+            <div
+                class="button"
+                ng-click="state.ui.submitGame.action()"
+            >Submit</div>
         </div>
         <br/>
         <br/>
