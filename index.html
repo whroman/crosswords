@@ -2,6 +2,7 @@
     <head>
         <title>Crossword Trainer</title>
         <script src='public/build.js'></script>
+        <meta HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
         <link rel='stylesheet' href='public/foundation.min.css' />
         <link rel='stylesheet' href='public/index.css' />
     </head>
@@ -62,11 +63,11 @@
                         ng-keyup="state.onKeypress($event, tile)"
                         placeholder="{{tile.placeholder}}"
                     />
+                    <div
+                        class="word-number"
+                        ng-if="tile.isFirstInWord.length"
+                    >{{ tile.isFirstInWord[0] }}</div>
                 </div>
-                <div
-                    class="word-number"
-                    ng-if="tile.isFirstInWord.length"
-                >{{ tile.isFirstInWord[0] }}</div>
             </div>
             <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
         </div>
@@ -74,14 +75,14 @@
         <br/>
         <div>
             <div
-                class="button"
+                class="button button-solve"
                 ng-click="state.ui.showAllTiles.action()"
-            >Solve the Board</div>
+            >Show solution</div>
 
             <div
-                class="button"
+                class="button button-submit-isActive"
                 ng-click="state.ui.submitGame.action()"
-            >Submit</div>
+            >Submit my answers</div>
         </div>
         <br/>
         <br/>
