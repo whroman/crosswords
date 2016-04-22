@@ -97,6 +97,13 @@ angular
                 if (shouldSetSecondWord) id = wordTwo;
                 $scope.ui.currentWord.set(id);
             }
+        },
+        submitGame: {
+            hasOccurred: false,
+            action () {
+                console.log(this.hasOccurred)
+                this.hasOccurred = true;
+            }
         }
     };
 

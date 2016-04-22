@@ -47,8 +47,8 @@
                 ng-class="{
                     nth: tile.x % state.crossword.width === 0,
                     'is-in-use': tile.isInUse,
-                    'is-correct': tile.isFulfilled(),
-                    'is-incorrect': !tile.isFulfilled(),
+                    'is-correct': tile.isFulfilled() && state.ui.submitGame.hasOccurred,
+                    'is-incorrect': !tile.isFulfilled() && state.ui.submitGame.hasOccurred,
                     'belongs-to-current-word': tile.belongsToCurrentWord,
                 }"
             >
@@ -75,6 +75,11 @@
                 class="button"
                 ng-click="state.ui.showAllTiles.action()"
             >Solve the Board</div>
+
+            <div
+                class="button"
+                ng-click="state.ui.submitGame.action()"
+            >Submit</div>
         </div>
         <br/>
         <br/>

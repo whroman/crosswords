@@ -76,12 +76,9 @@ body {
     height: 100%;
     text-align: center;
     background-color: transparent;
-<<<<<<< HEAD
     text-transform: uppercase;
-=======
     border: none;
     box-shadow: none;
->>>>>>> gh-pages
 }
 
 .tile.is-in-use.is-correct input {
