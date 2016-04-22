@@ -17,6 +17,11 @@ body {
     padding: 0 1em 0 0.5em;
 }
 
+.clue-set {
+    float: left;
+    width: 100%;
+}
+
 .clue:hover {
     background-color: #ccc;
 }

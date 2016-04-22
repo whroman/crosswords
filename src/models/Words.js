@@ -2,12 +2,12 @@ import Word from './Word';
 
 export default class Words {
     constructor () {
-        this.id = 0;
+        this.id = 1;
         this.collection = {};
     }
 
-    set (LetterTiles) {
-        const word =new Word(this.id, LetterTiles);
+    set (LetterTiles, direction, clue) {
+        const word = new Word(this.id, LetterTiles, direction, clue);
         this.collection[this.id] = word;
         this.id += 1;
         return word;

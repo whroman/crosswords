@@ -2,6 +2,7 @@ import angular from 'angular';
 import CrosswordGrid from './../src/models/CrosswordGrid';
 import content from './../fixtures/one.json';
 import processContent from './../src/services/processContent';
+import { each } from 'lodash';
 import 'ng-focus-on';
 
 angular
@@ -10,13 +11,17 @@ angular
     const $scope = this;
 
     const { size, words } = processContent(content);
-    $scope.words = words;
     $scope.crossword = new CrosswordGrid(size.x, size.y);
-    $scope.words.forEach((item) => {
-        $scope.crossword.setWord(item.word, item.coords);
+    words.forEach((item) => $scope.crossword.setWord(item));
+
+    $scope.words = { horizontal: [], vertical: [] };
+    each($scope.crossword.words.collection, (word) => {
+        console.log(word)
+        $scope.words[word.direction].push(word);
     });
 
-    const firstWord = $scope.crossword.words.get(0);
+
+    const firstWord = $scope.crossword.words.get(1);
 
     const inputKeyBlacklist = [
         // 9,  // tab
@@ -84,7 +89,12 @@ angular
         handleTileClick: {
             action (tile) {
                 let id = tile.words[0];
-                if ($scope.ui.currentWord.id === id) id = tile.words[1];
+                const wordTwo = tile.words[1];
+                const shouldSetSecondWord = (
+                    $scope.ui.currentWord.id === id &&
+                    wordTwo
+                );
+                if (shouldSetSecondWord) id = wordTwo;
                 $scope.ui.currentWord.set(id);
             }
         }

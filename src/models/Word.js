@@ -1,14 +1,18 @@
 import Tile from './Tile';
 
 export default class Word {
-    constructor (wordID, tiles) {
+    constructor (id, tiles, direction, clue) {
         tiles.forEach((tile) => {
             if (!(tile instanceof Tile)) throw Error('`tiles` must be composed of only instances of Tile');
-            tile.words.push(wordID);
+            tile.words.push(id);
         });
 
-        this.id = wordID;
-        this.collection = tiles;
+        Object.assign(this, {
+            id,
+            collection: tiles,
+            direction,
+            clue
+        });
     }
 
     isFilled () {

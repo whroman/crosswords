@@ -39,16 +39,17 @@ export default class CrosswordGrid {
         return tile;
     }
 
-    setWord (wordStr, coordSets) {
-        const letterTiles = coordSets.map( (coords, index) => {
+    setWord (rawWord) {
+        const { word, coords, direction, clue } = rawWord;
+        const letterTiles = coords.map( (coords, index) => {
             const x = coords[0];
             const y = coords[1];
-            const letterTile = this.setInput(x, y, wordStr[index]);
+            const letterTile = this.setInput(x, y, word[index]);
             return letterTile;
         });
 
-        const word = this.words.set(letterTiles);
-        return word;
+        const setWord = this.words.set(letterTiles, direction, clue);
+        return setWord;
     }
 
     getNextWord (currentWordID, tileX, tileY) {

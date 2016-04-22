@@ -9,16 +9,34 @@
         <br/>
         <br/>
         <div id="clues">
-            <div ng-repeat="(index, word) in state.words">
-                <div
-                    ng-class="[
-                        'clue', {
-                            selected: state.ui.currentWord.id === index
-                        }
-                    ]"
-                    ng-click="state.ui.handleClueClick.action(index)"
-                >{{index + 1}}. {{word.clue}}</div>
+            <div class="clue-set">
+                <h3>Across</h3>
+                <div ng-repeat="word in state.words.horizontal">
+                    <div
+                        ng-class="[
+                            'clue', {
+                                selected: state.ui.currentWord.id === word.id
+                            }
+                        ]"
+                        ng-click="state.ui.handleClueClick.action(word.id)"
+                    >{{word.id}}. {{word.clue}}</div>
+                </div>
             </div>
+
+            <div class="clue-set">
+                <h3>Down</h3>
+                <div ng-repeat="word in state.words.vertical">
+                    <div
+                        ng-class="[
+                            'clue', {
+                                selected: state.ui.currentWord.id === word.id
+                            }
+                        ]"
+                        ng-click="state.ui.handleClueClick.action(word.id)"
+                    >{{word.id}}. {{word.clue}}</div>
+                </div>
+            </div>
+
 
         </div>
         <div id="board">
