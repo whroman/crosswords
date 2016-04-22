@@ -34,7 +34,7 @@ body {
     float: left;
     width: 60%;
     font-family: monospace;
-    font-size: 14px;
+    font-size: 18px;
     display: inline-block
 }
 
@@ -49,6 +49,7 @@ body {
     float: left;
     position: relative;
     z-index: 0;
+    text-transform: uppercase;
 }
 
 .tile.nth {
@@ -66,8 +67,12 @@ body {
     height: 100%;
     text-align: center;
     background-color: transparent;
+<<<<<<< HEAD
+    text-transform: uppercase;
+=======
     border: none;
     box-shadow: none;
+>>>>>>> gh-pages
 }
 
 .tile.is-in-use.is-correct input {
