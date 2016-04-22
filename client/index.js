@@ -18,7 +18,6 @@ angular
     });
 
     const firstWord = $scope.crossword.words.get(0);
-    $scope.currentWordID = firstWord.id;
 
     const inputKeyBlacklist = [
         // 9,  // tab
@@ -44,15 +43,28 @@ angular
         if (shouldCutInput) tile.input = input[input.length - 1];
         tile.input = tile.input.toUpperCase();
 
-        const nextWord = $scope.crossword.getNextWord($scope.currentWordID, x, y);
+        const nextWord = $scope.crossword.getNextWord($scope.ui.currentWord.id, x, y);
         if (!nextWord) return;
 
         const nextTile = nextWord.getNextTile(x, y);
-        $scope.currentWordID = nextWord.id;
+        $scope.ui.currentWord.set(nextWord.id);
         focusTileByCoords(nextTile.x, nextTile.y);
     };
 
     $scope.ui = {
+        currentWord: {
+            id: false,
+            set (id) {
+                console.log(id)
+                this.id = id;
+                $scope.crossword.collection.forEach((tile) => {
+                    tile.belongsToCurrentWord = false;
+                    tile.words.forEach((wordID) => {
+                        if (this.id === wordID) tile.belongsToCurrentWord = true;
+                    });
+                });
+            }
+        },
         showAllTiles: {
             enabled: true,
             action () {
@@ -64,23 +76,22 @@ angular
         },
         handleClueClick: {
             action (id) {
-                console.log(id)
-                $scope.currentWordID = id;
+                $scope.ui.currentWord.set(id);
                 const word = $scope.crossword.words.get(id);
                 const { x, y } = word.collection[0];
-
-                $scope.crossword.collection.forEach((tile) => {
-                    tile.belongsToCurrentWord = false;
-                    tile.words.forEach((wordID) => {
-                        if ($scope.currentWordID === wordID) tile.belongsToCurrentWord = true;
-                    });
-                    console.log(tile.words);
-                });
-
                 focusTileByCoords(x, y);
+            }
+        },
+        handleTileClick: {
+            action (tile) {
+                let id = tile.words[0];
+                if ($scope.ui.currentWord.id === id) id = tile.words[1];
+                $scope.ui.currentWord.set(id);
             }
         }
     };
+
+    $scope.ui.currentWord.set(firstWord.id);
 
 });
 

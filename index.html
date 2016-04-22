@@ -11,7 +11,7 @@
                 <div
                     ng-class="[
                         'clue', {
-                            selected: state.currentWordID === index
+                            selected: state.ui.currentWord.id === index
                         }
                     ]"
                     ng-click="state.ui.handleClueClick.action(index)"
@@ -23,6 +23,7 @@
             <div
                 ng-repeat="tile in state.crossword.collection"
                 class="tile"
+                ng-click="state.ui.handleTileClick.action(tile)"
                 ng-class="{
                     nth: tile.x % state.crossword.width === 0,
                     'is-in-use': tile.isInUse,
