@@ -63,8 +63,8 @@
                 </div>
                 <div
                     class="word-number"
-                    ng-if="tile.isFirstInWord"
-                >{{ tile.isFirstInWord }}</div>
+                    ng-if="tile.isFirstInWord.length"
+                >{{ tile.isFirstInWord[0] }}</div>
             </div>
             <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
         </div>

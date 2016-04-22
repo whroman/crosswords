@@ -8,7 +8,9 @@ export default class Tile {
             words: [],
             value: "",
             input: "",
-            placeholder: ""
+            placeholder: "",
+            isLastInWord: [],
+            isFirstInWord: [],
         });
     }
 
