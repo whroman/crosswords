@@ -1,7 +1,9 @@
 <html id="app">
     <head>
         <title>Crossword Trainer</title>
+        <meta charset="UTF-8">
         <script src='public/build.js'></script>
+        <meta HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
         <link rel='stylesheet' href='public/foundation.min.css' />
         <link rel='stylesheet' href='public/index.css' />
         <meta charset="utf-8"/>
@@ -40,6 +42,7 @@
               </div>
           </div>
         </div>
+
         <div id="rightcolumn">
           <div id="board">
               <div
@@ -63,28 +66,30 @@
                           ng-keyup="state.onKeypress($event, tile)"
                           placeholder="{{tile.placeholder}}"
                       />
+                      <div
+                          class="word-number"
+                          ng-if="tile.isFirstInWord.length"
+                      >{{ tile.isFirstInWord[0] }}</div>
                   </div>
                   <div
                       class="word-number"
                       ng-if="tile.isFirstInWord.length"
-                  >{{ tile.isFirstInWord[0] }}</div>
+                  >{{ tile.isFirstInWord.join(',') }}</div>
               </div>
               <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
           </div>
-        </div>
+          <br>
+          <div id="actions">
+              <div
+                  class="button button-submit-isActive"
+                  ng-click="state.ui.submitGame.action()"
+              >Submit my answers</div>
 
-        <div id="actions">
-            <div
-                class="button"
-                ng-click="state.ui.submitGame.action()"
-            >Submit</div>
-
-            <div
-                class="button"
-                ng-click="state.ui.showAllTiles.action()"
-            >Solve the Board</div>
+              <div
+                  class="button button-solve"
+                  ng-click="state.ui.showAllTiles.action()"
+              >Show solution</div>
+          </div>
         </div>
-        <br/>
-        <br/>
     </body>
 </html>
