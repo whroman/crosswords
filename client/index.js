@@ -17,7 +17,9 @@ angular
     $scope.words = { horizontal: [], vertical: [] };
     each($scope.crossword.words.collection, (word, key) => {
         const firstTile = word.collection[0];
-        firstTile.isFirstInWord = word.id;
+        firstTile.isFirstInWord.push(word.id);
+        const lastTile = word.collection[word.collection.length - 1];
+        lastTile.isLastInWord.push(word.id);
         $scope.words[word.direction].push(word);
     });
 
@@ -47,11 +49,17 @@ angular
         if (shouldCutInput) tile.input = input[input.length - 1];
         tile.input = tile.input.toUpperCase();
 
-        const nextWord = $scope.crossword.getNextWord($scope.ui.currentWord.id, x, y);
-        if (!nextWord) return;
+        let nextTile;
 
-        const nextTile = nextWord.getNextTile(x, y);
-        $scope.ui.currentWord.set(nextWord.id);
+        if (tile.isLastInWord.indexOf($scope.ui.currentWord.id) > -1) {
+            let nextWord = $scope.crossword.words.get($scope.ui.currentWord.id + 1);
+            if (!nextWord) nextWord = $scope.crossword.words.get(1);
+            nextTile = nextWord.collection[0];
+            $scope.ui.currentWord.set(nextWord.id);
+        } else {
+            nextTile = $scope.crossword.words.get($scope.ui.currentWord.id).getNextTile(x, y);
+        }
+
         focusTileByCoords(nextTile.x, nextTile.y);
     };
 
@@ -98,6 +106,13 @@ angular
                 $scope.ui.currentWord.set(id);
             }
         },
+        handleTileFocus (words) {
+            console.log(words);
+            const wordIndex = words.indexOf($scope.ui.currentWord.id);
+            if (wordIndex === -1) {
+                $scope.ui.currentWord.set(words[0]);
+            }
+        },
         submitGame: {
             hasOccurred: false,
             action () {
@@ -108,6 +123,8 @@ angular
     };
 
     $scope.ui.currentWord.set(firstWord.id);
+    const firstTile = firstWord.collection[0];
+    focusTileByCoords(firstTile.x, firstTile.y);
 
 });
 
