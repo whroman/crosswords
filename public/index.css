@@ -51,6 +51,15 @@ body {
     z-index: 0;
 }
 
+.word-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 3px;
+    font-size: 9px;
+    line-height: 9px;
+}
+
 .tile.nth {
     clear: both;
 }

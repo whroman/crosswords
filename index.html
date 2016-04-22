@@ -61,6 +61,10 @@
                         placeholder="{{tile.placeholder}}"
                     />
                 </div>
+                <div
+                    class="word-number"
+                    ng-if="tile.isFirstInWord"
+                >{{ tile.isFirstInWord }}</div>
             </div>
             <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
         </div>

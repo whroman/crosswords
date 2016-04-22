@@ -15,11 +15,11 @@ angular
     words.forEach((item) => $scope.crossword.setWord(item));
 
     $scope.words = { horizontal: [], vertical: [] };
-    each($scope.crossword.words.collection, (word) => {
-        console.log(word)
+    each($scope.crossword.words.collection, (word, key) => {
+        const firstTile = word.collection[0];
+        firstTile.isFirstInWord = word.id;
         $scope.words[word.direction].push(word);
     });
-
 
     const firstWord = $scope.crossword.words.get(1);
 
