@@ -1,45 +1,48 @@
-<html>
+<html id="app">
     <head>
         <title>Crossword Trainer</title>
+        <meta charset="UTF-8">
         <script src='public/build.js'></script>
         <meta HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
         <link rel='stylesheet' href='public/foundation.min.css' />
         <link rel='stylesheet' href='public/index.css' />
+        <meta charset="utf-8"/>
     </head>
     <body ng-controller="CrosswordCtrl as state">
         <br/>
         <br/>
         <div class="rainbow"></div>
-        <div id="clues">
-            <div class="clue-set">
-                <h3>Across</h3>
-                <div class="clue-set-item" ng-repeat="word in state.words.horizontal">
-                    <div
-                        ng-class="[
-                            'clue', {
-                                selected: state.ui.currentWord.id === word.id
-                            }
-                        ]"
-                        ng-click="state.ui.handleClueClick.action(word.id)"
-                    ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
-                </div>
-            </div>
+        <div id="leftcolumn">
+          <h2>Practice the colors…</h2>
+          <div id="clues">
+              <div class="clue-set">
+                  <h3>Across</h3>
+                  <div class="clue-set-item" ng-repeat="word in state.words.horizontal">
+                      <div
+                          ng-class="[
+                              'clue', {
+                                  selected: state.ui.currentWord.id === word.id
+                              }
+                          ]"
+                          ng-click="state.ui.handleClueClick.action(word.id)"
+                      ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
+                  </div>
+              </div>
 
-            <div class="clue-set">
-                <h3>Down</h3>
-                <div class="clue-set-item" ng-repeat="word in state.words.vertical">
-                    <div
-                        ng-class="[
-                            'clue', {
-                                selected: state.ui.currentWord.id === word.id
-                            }
-                        ]"
-                        ng-click="state.ui.handleClueClick.action(word.id)"
-                    ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
-                </div>
-            </div>
-
-
+              <div class="clue-set">
+                  <h3>Down</h3>
+                  <div class="clue-set-item" ng-repeat="word in state.words.vertical">
+                      <div
+                          ng-class="[
+                              'clue', {
+                                  selected: state.ui.currentWord.id === word.id
+                              }
+                          ]"
+                          ng-click="state.ui.handleClueClick.action(word.id)"
+                      ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
+                  </div>
+              </div>
+          </div>
         </div>
         <div id="board">
             <div
@@ -68,6 +71,13 @@
                         ng-if="tile.isFirstInWord.length"
                     >{{ tile.isFirstInWord[0] }}</div>
                 </div>
+<<<<<<< HEAD
+=======
+                <div
+                    class="word-number"
+                    ng-if="tile.isFirstInWord.length"
+                >{{ tile.isFirstInWord.join(',') }}</div>
+>>>>>>> origin/gh-pages
             </div>
             <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
         </div>

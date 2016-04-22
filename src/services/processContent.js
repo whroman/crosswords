@@ -23,5 +23,14 @@ export default function (content) {
         return { word, clue, coords, direction: 'vertical' };
     });
 
-    return { size, words: horizontal.concat(vertical) };
+    const words = horizontal.concat(vertical).sort((itemA, itemB) => {
+        const x = { a: itemA.coords[0], b: itemB.coords[0] };
+        const y = { a: itemA.coords[1], b: itemB.coords[1] };
+
+        if (y.a < y.b) return -1;
+        if (x.a < x.b) return -1;
+        return 1;
+    });
+
+    return { size, words };
 }
