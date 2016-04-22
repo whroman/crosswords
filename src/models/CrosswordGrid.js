@@ -76,7 +76,8 @@ export default class CrosswordGrid {
 
     unsetPlaceholders () {
         for (let key in this.words.collection) {
-            this.words[key].unsetPlaceholders();
+            const word = this.words.collection[key];
+            word.unsetPlaceholders();
         }
     }
 }

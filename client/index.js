@@ -80,8 +80,11 @@ angular
         showAllTiles: {
             enabled: true,
             action () {
-                console.log(this.enabled);
-                if (!this.enabled) return;
+                if (!this.enabled) {
+                    this.enabled = true;
+                    $scope.crossword.unsetPlaceholders();
+                    return;
+                }
                 $scope.crossword.setPlaceholders();
                 this.enabled = false;
             }
@@ -107,7 +110,6 @@ angular
             }
         },
         handleTileFocus (words) {
-            console.log(words);
             const wordIndex = words.indexOf($scope.ui.currentWord.id);
             if (wordIndex === -1) {
                 $scope.ui.currentWord.set(words[0]);
@@ -116,7 +118,6 @@ angular
         submitGame: {
             hasOccurred: false,
             action () {
-                console.log(this.hasOccurred)
                 this.hasOccurred = true;
             }
         },
@@ -125,7 +126,6 @@ angular
             show () {
                 this.isVisible = true;
                 $timeout(() => {
-                    console.log($scope);
                     this.isVisible = false;
                 }, 2000);
             }
