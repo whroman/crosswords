@@ -15,16 +15,83 @@ h2 {
 .rainbow {
   background-image: url("img/rainbow.png");
   text-align: center;
-  min-width: 100%;
-  height: 70px;
+  height: 72px;
   position: absolute;
-  top: 100px;
+  top: 160px;
   left: -100px;
   right: -100px;
   padding: 0;
   margin: 0;
   background-size: cover;
   z-index: -10000;
+  overflow-x: hidden;
+}
+
+.button-solve {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: "Source Sans Pro", sans-serif;
+  background: transparent;
+  border: 1px solid #6C7A81;
+  color: #6C7A81;
+  text-decoration: none;
+  padding: 12px 34px;
+  border-radius: 22px;
+  transition: 300ms ease-out;
+  text-align: center;
+}
+
+.button-solve:hover {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: "Source Sans Pro", sans-serif;
+  background: transparent;
+  border: 1px solid #6C7A81;
+  color: #6C7A81;
+  text-decoration: none;
+  padding: 12px 34px;
+  border-radius: 22px;
+  transition: 300ms ease-out;
+  text-align: center;
+}
+
+.button-submit-isActive {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: "Source Sans Pro", sans-serif;
+  background: #FF790F;
+  color: white;
+  text-decoration: none;
+  padding: 12px 34px;
+  border-radius: 22px;
+  transition: 300ms ease-out;
+  text-align: center;
+}
+
+.button-submit-isActive:hover {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: "Source Sans Pro", sans-serif;
+  background: #FF8126;
+  color: white;
+  text-decoration: none;
+  padding: 12px 34px;
+  border-radius: 22px;
+  transition: 300ms ease-out;
+  text-align: center;
+}
+
+.button-submit-isActive:active {
+  font-size: 15px;
+  font-weight: 400;
+  font-family: "Source Sans Pro", sans-serif;
+  background: #F67716;
+  color: white;
+  text-decoration: none;
+  padding: 12px 34px;
+  border-radius: 22px;
+  transition: 300ms ease-out;
+  text-align: center;
 }
 
 #leftcolumn {
@@ -147,16 +214,39 @@ h2 {
     text-align: center;
     background-color: transparent;
     text-transform: uppercase;
-    border: none;
+    border: 2px solid rgba(78,144,242,0);
+    transition: 0.2s ease-in-out;
     box-shadow: none;
+    cursor: pointer;
+}
+
+.tile.is-in-use input:focus {
+    transition: 0.2s ease-in-out;
+    border: 2px solid #4e90f2;
+}
+
+.tile.is-in-use input:hover {
+    border: 2px solid #4e90f2;
 }
 
 .tile.is-in-use.is-correct input {
-    background-color: #8c8;
+  background-color: #44E99A;
+  color: white;
+  font-weight: bolder;
+}
+
+.tile.is-in-use.is-correct input.ng-dirty + .word-number {
+  color: white;
 }
 
 .tile.is-in-use.is-incorrect input.ng-dirty {
-    background-color: #e88;
+  background-color: #FF7573;
+  color: white;
+  font-weight: bolder;
+}
+
+.tile.is-in-use.is-incorrect input.ng-dirty + .word-number {
+  color: white;
 }
 
 .tile.belongs-to-current-word {
