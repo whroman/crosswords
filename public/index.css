@@ -61,6 +61,7 @@ body {
     height: 100%;
     text-align: center;
     background-color: transparent;
+    text-transform: uppercase;
 }
 
 .tile.is-in-use.is-correct input {
