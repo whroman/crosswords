@@ -25,6 +25,7 @@ export default class CrosswordGrid {
     setLetter (x, y, value) {
         if (String(value).length !== 1) throw new Error('`value` must be a String of length 1');
         const tile = this.get(x, y);
+        value = value.toUpperCase();
         Object.assign(tile, {
             value,
             isInUse: true

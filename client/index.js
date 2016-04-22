@@ -28,6 +28,7 @@ angular
 
     $scope.onKeypress = ($event, tile) => {
         $event.preventDefault();
+        tile.input = tile.input.toUpperCase();
         const { input, x, y } = tile;
 
         const keyIsBlackedListed = inputKeyBlacklist.indexOf($event.keyCode) > -1;
@@ -36,6 +37,7 @@ angular
 
         const shouldCutInput = input.length > 1;
         if (shouldCutInput) tile.input = input[input.length - 1];
+        tile.input = tile.input.toUpperCase();
 
         const nextWord = $scope.crossword.getNextWord(currentWordID, x, y);
         if (!nextWord) return;
