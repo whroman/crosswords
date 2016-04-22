@@ -3,8 +3,16 @@
         <title>Crossword Trainer</title>
         <script src='public/build.js'></script>
     </head>
-    <body>
-        <div id="board" ng-controller="CrosswordCtrl as state">
+    <body ng-controller="CrosswordCtrl as state">
+        <div>
+            <div
+                class="button"
+                ng-click="state.ui.showAllTiles.action()"
+            >Solve the Board</div>
+        </div>
+        <br/>
+        <br/>
+        <div id="board">
             <div
                 ng-repeat="tile in state.crossword.collection"
                 class="tile"
@@ -21,6 +29,7 @@
                         ng-model="tile.input"
                         focus-on="{{'tile-' + tile.x + tile.y}}"
                         ng-keyup="state.onKeypress($event, tile)"
+                        placeholder="{{tile.placeholder}}"
                     />
                 </div>
             </div>

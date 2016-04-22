@@ -64,4 +64,17 @@ export default class CrosswordGrid {
 
         return this.words.getUnfilled();
     }
+
+    setPlaceholders () {
+        for (let key in this.words.collection) {
+            const word = this.words.collection[key];
+            word.setPlaceholders();
+        }
+    }
+
+    unsetPlaceholders () {
+        for (let key in this.words.collection) {
+            this.words[key].unsetPlaceholders();
+        }
+    }
 }

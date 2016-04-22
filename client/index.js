@@ -8,17 +8,16 @@ import './index.scss';
 angular
 .module('Crossword', ['focusOn'])
 .controller('CrosswordCtrl', function CountCtrl(focus) {
+    const $scope = this;
 
     const { size, words } = processContent(content);
-
-    this.crossword = new CrosswordGrid(size.x, size.y);
-
+    $scope.crossword = new CrosswordGrid(size.x, size.y);
     words.forEach((item) => {
-        const { word, coords } = item;
-        this.crossword.setWord(word, coords);
+        $scope.crossword.setWord(item.word, item.coords);
     });
 
-    this.currentWordID = this.crossword.words.get(0);
+    const firstWord = $scope.crossword.words.get(0);
+    let currentWordID = firstWord.id;
 
     const inputKeyBlacklist = [
         // 9,  // tab
@@ -27,7 +26,7 @@ angular
         18  // alt
     ];
 
-    this.onKeypress = ($event, tile) => {
+    $scope.onKeypress = ($event, tile) => {
         $event.preventDefault();
         const { input, x, y } = tile;
 
@@ -38,13 +37,26 @@ angular
         const shouldCutInput = input.length > 1;
         if (shouldCutInput) tile.input = input[input.length - 1];
 
-        const nextWord = this.crossword.getNextWord(this.currentWordID, x, y);
+        const nextWord = $scope.crossword.getNextWord(currentWordID, x, y);
         if (!nextWord) return;
 
         const nextTile = nextWord.getNextTile(x, y);
-        this.currentWordID = nextWord.id;
+        currentWordID = nextWord.id;
         focus(`tile-${nextTile.x}${nextTile.y}`);
     };
+
+    $scope.ui = {
+        showAllTiles: {
+            enabled: true,
+            action () {
+                console.log(this.enabled);
+                if (!this.enabled) return;
+                $scope.crossword.setPlaceholders();
+                this.enabled = false;
+            }
+        }
+    };
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {

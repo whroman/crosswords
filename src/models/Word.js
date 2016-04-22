@@ -45,4 +45,12 @@ export default class Word {
 
         return this.collection[0];
     }
+
+    setPlaceholders () {
+        this.collection.forEach((tile) => tile.setPlaceholder());
+    }
+
+    unsetPlaceholders () {
+        this.collection.forEach((tile) => tile.unsetPlaceholder());
+    }
 }

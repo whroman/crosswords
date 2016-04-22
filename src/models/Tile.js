@@ -7,7 +7,8 @@ export default class Tile {
             isEditable: false,
             words: [],
             value: "",
-            input: ""
+            input: "",
+            placeholder: ""
         });
     }
 
@@ -17,6 +18,14 @@ export default class Tile {
 
     isFulfilled () {
         return this.isEditable && this.value.toLowerCase() === this.input.toLowerCase();
+    }
+
+    setPlaceholder () {
+        this.placeholder = this.value;
+    }
+
+    unsetPlaceholder () {
+        this.placeholder = "";
     }
 
 }
