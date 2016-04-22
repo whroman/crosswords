@@ -44,6 +44,7 @@ body {
     float: left;
     position: relative;
     z-index: 0;
+    text-transform: uppercase;
 }
 
 .tile.nth {
