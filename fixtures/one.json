@@ -1,16 +1,46 @@
 {
-    "horizontal": [
-        {
-            "word": "green",
-            "location": [ 3, 7 ],
-            "clue": "Die Farbe von Basilikum."
-        }
-    ],
-    "vertical": [
-        {
-            "word": "brown",
-            "location": [ 7, 3 ],
-            "clue": "Eine typische Farbe für Lederschuhe."
-        }
-    ]
+  "horizontal": [
+    {
+      "word": "green",
+      "location": [ 3, 7 ],
+      "clue": "Die Farbe von Basilikum"
+    },
+    {
+      "word": "yellow",
+      "location": [ 0, 3 ],
+      "clue": "Die Farbe von Schulbussen in den USA"
+    },
+    {
+      "word": "black",
+      "location": [ 7, 3 ],
+      "clue": "Die Farbe von Taxis in London"
+    }
+  ],
+  "vertical": [
+    {
+      "word": "brown",
+      "location": [ 7, 3 ],
+      "clue": "Eine typische Farbe für Lederschuhe"
+    },
+    {
+      "word": "pink",
+      "location": [ 11, 0 ],
+      "clue": "Die Lieblingsfarbe eines kleinen MÃ¤dchens"
+    },
+    {
+      "word": "red",
+      "location": [ 1, 2 ],
+      "clue": "Die ___ Sea ist auch als der Golf von Arabien bekannt"
+    },
+    {
+      "word": "blue",
+      "location": [ 3, 2 ],
+      "clue": "Das größte Tier auf der Erde ist der ____ Wal"
+    },
+    {
+      "word": "white",
+      "location": [ 5, 3 ],
+      "clue": "Die Farbe eines berühmten Beatles-Albums"
+    }
+  ]
 }

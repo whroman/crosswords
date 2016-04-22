@@ -1,7 +1,7 @@
 import angular from 'angular';
-import CrosswordGrid from './../src/models/CrosswordGrid.js';
+import CrosswordGrid from './../src/models/CrosswordGrid';
 import content from './../fixtures/one.json';
-import { range } from 'lodash';
+import processContent from './../src/services/processContent';
 import 'ng-focus-on';
 import './index.scss';
 
@@ -9,23 +9,12 @@ angular
 .module('Crossword', ['focusOn'])
 .controller('CrosswordCtrl', function CountCtrl(focus) {
 
-    this.crossword = new CrosswordGrid(10,15);
+    const { size, words } = processContent(content);
 
-    content.horizontal.forEach((item) => {
-        const { word, location } = item;
-        const startX = location[0];
-        const endX = word.length + startX;
-        const y = location[1];
-        const coords = range(startX, endX).map((xx) => [xx, y]);
-        this.crossword.setWord(word, coords);
-    });
+    this.crossword = new CrosswordGrid(size.x, size.y);
 
-    content.vertical.forEach((item) => {
-        const { word, location } = item;
-        const startY = location[1];
-        const endY = word.length + startY;
-        const x = location[0];
-        const coords = range(startY, endY).map((yy) => [x, yy]);
+    words.forEach((item) => {
+        const { word, coords } = item;
         this.crossword.setWord(word, coords);
     });
 

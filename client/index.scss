@@ -2,9 +2,14 @@
 
 @include foundation-everything();
 
-#crossword {
+body {
+    text-align: center;
+}
+
+#board {
     font-family: monospace;
     font-size: 14px;
+    display: inline-block
 }
 
 .tile {

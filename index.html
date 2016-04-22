@@ -1,10 +1,10 @@
 <html>
     <head>
         <title>Crossword Trainer</title>
-        <script src='./public/build.js'></script>
+        <script src='public/build.js'></script>
     </head>
     <body>
-        <div id="crossword" ng-controller="CrosswordCtrl as state">
+        <div id="board" ng-controller="CrosswordCtrl as state">
             <div
                 ng-repeat="tile in state.crossword.collection"
                 class="tile"
