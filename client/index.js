@@ -7,7 +7,7 @@ import 'ng-focus-on';
 
 angular
 .module('Crossword', ['focusOn'])
-.controller('CrosswordCtrl', function CountCtrl(focus) {
+.controller('CrosswordCtrl', function CountCtrl(focus, $timeout) {
     const $scope = this;
 
     const { size, words } = processContent(content);
@@ -119,6 +119,17 @@ angular
                 console.log(this.hasOccurred)
                 this.hasOccurred = true;
             }
+        },
+        successModal: {
+            isVisible: false,
+            show () {
+                this.isVisible = true;
+                $timeout(() => {
+                    console.log($scope);
+                    this.isVisible = false;
+                }, 2000);
+            }
+
         }
     };
 
