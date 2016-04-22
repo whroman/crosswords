@@ -11,7 +11,7 @@ describe('CrosswordGrid Model', () => {
         it('should populate `.collection` correctly', () => {
             tests.forEach((test) => {
                 const x = test[0];
-                const y = test[1]
+                const y = test[1];
                 const grid = new CrosswordGrid(x, y);
                 expect(grid.collection.length).to.equal(x * y);
             });
@@ -29,7 +29,9 @@ describe('CrosswordGrid Model', () => {
                 const grid = new CrosswordGrid(2, 2);
                 const tile = grid.get(...xy);
                 expect(tile.isInUse).to.equal(false);
-                expect(() => { grid.setLetter(...xy, test) }).to.throw;
+                expect(() => {
+                    grid.setLetter(...xy, test);
+                }).to.throw;
             });
         });
 

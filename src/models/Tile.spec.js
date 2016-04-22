@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import Tile from './Tile.js';
 
-console.log(Tile);
-
 describe('Tile Model', () => {
     describe("#isFulfilled", () => {
         let tile;
