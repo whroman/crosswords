@@ -106,6 +106,13 @@ angular
                 $scope.ui.currentWord.set(id);
             }
         },
+        handleTileFocus (words) {
+            console.log(words);
+            const wordIndex = words.indexOf($scope.ui.currentWord.id);
+            if (wordIndex === -1) {
+                $scope.ui.currentWord.set(words[0]);
+            }
+        },
         submitGame: {
             hasOccurred: false,
             action () {
@@ -116,6 +123,8 @@ angular
     };
 
     $scope.ui.currentWord.set(firstWord.id);
+    const firstTile = firstWord.collection[0];
+    focusTileByCoords(firstTile.x, firstTile.y);
 
 });
 
