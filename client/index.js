@@ -18,7 +18,7 @@ angular
     });
 
     const firstWord = $scope.crossword.words.get(0);
-    let currentWordID = firstWord.id;
+    $scope.currentWordID = firstWord.id;
 
     const inputKeyBlacklist = [
         // 9,  // tab
@@ -44,11 +44,11 @@ angular
         if (shouldCutInput) tile.input = input[input.length - 1];
         tile.input = tile.input.toUpperCase();
 
-        const nextWord = $scope.crossword.getNextWord(currentWordID, x, y);
+        const nextWord = $scope.crossword.getNextWord($scope.currentWordID, x, y);
         if (!nextWord) return;
 
         const nextTile = nextWord.getNextTile(x, y);
-        currentWordID = nextWord.id;
+        $scope.currentWordID = nextWord.id;
         focusTileByCoords(nextTile.x, nextTile.y);
     };
 
@@ -62,8 +62,10 @@ angular
                 this.enabled = false;
             }
         },
-        focusWordByID: {
+        handleClueClick: {
             action (id) {
+                console.log(id)
+                $scope.currentWordID = id;
                 const word = $scope.crossword.words.get(id);
                 const { x, y } = word.collection[0];
                 focusTileByCoords(x, y);

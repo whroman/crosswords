@@ -9,10 +9,13 @@
         <div id="clues">
             <div ng-repeat="(index, word) in state.words">
                 <div
-                    class="clue"
-                    ng-click="state.ui.focusWordByID.action(index)"
+                    ng-class="[
+                        'clue', {
+                            selected: state.currentWordID === index
+                        }
+                    ]"
+                    ng-click="state.ui.handleClueClick.action(index)"
                 >{{index + 1}}. {{word.clue}}</div>
-                <br/>
             </div>
 
         </div>
