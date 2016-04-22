@@ -11,7 +11,7 @@
         <div id="clues">
             <div class="clue-set">
                 <h3>Across</h3>
-                <div ng-repeat="word in state.words.horizontal">
+                <div class="clue-set-item" ng-repeat="word in state.words.horizontal">
                     <div
                         ng-class="[
                             'clue', {
@@ -19,13 +19,13 @@
                             }
                         ]"
                         ng-click="state.ui.handleClueClick.action(word.id)"
-                    >{{word.id}}. {{word.clue}}</div>
+                    ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
                 </div>
             </div>
 
             <div class="clue-set">
                 <h3>Down</h3>
-                <div ng-repeat="word in state.words.vertical">
+                <div class="clue-set-item" ng-repeat="word in state.words.vertical">
                     <div
                         ng-class="[
                             'clue', {
@@ -33,7 +33,7 @@
                             }
                         ]"
                         ng-click="state.ui.handleClueClick.action(word.id)"
-                    >{{word.id}}. {{word.clue}}</div>
+                    ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
                 </div>
             </div>
 
