@@ -1,5 +1,23 @@
 body {
     text-align: center;
+    background-color: #fbfcfc;
+    background-image: url("img/bg-pattern.png");
+    background-repeat:repeat;
+}
+
+.rainbow {
+  background-image: url("img/rainbow.png");
+  text-align: center;
+  min-width: 100%;
+  height: 70px;
+  position: absolute;
+  top: 100px;
+  left: -100px;
+  right: -100px;
+  padding: 0;
+  margin: 0;
+  background-size: cover;
+  z-index: -10000;
 }
 
 #clues {
@@ -57,8 +75,10 @@ body {
     top: 0;
     left: 0;
     padding: 3px;
-    font-size: 9px;
-    line-height: 9px;
+    font-size: 10px;
+    font-weight:bolder;
+    color: #6C7A81;
+    line-height: 10px;
 }
 
 .tile.nth {
@@ -90,5 +110,5 @@ body {
 }
 
 .tile.belongs-to-current-word {
-    background-color: #dbd;
+    background-color: #F3F8FE;
 }
