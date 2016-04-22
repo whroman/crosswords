@@ -6,7 +6,24 @@ body {
     text-align: center;
 }
 
+#clues {
+    float: left;
+    text-align: left;
+    width: 40%;
+}
+
+.clue {
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: #ccc;
+    }
+}
+
 #board {
+    float: left;
+    width: 60%;
     font-family: monospace;
     font-size: 14px;
     display: inline-block

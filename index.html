@@ -6,14 +6,16 @@
     <body ng-controller="CrosswordCtrl as state">
         <br/>
         <br/>
-        <div>
-            <div
-                class="button"
-                ng-click="state.ui.showAllTiles.action()"
-            >Solve the Board</div>
+        <div id="clues">
+            <div ng-repeat="(index, word) in state.words">
+                <div
+                    class="clue"
+                    ng-click="state.ui.focusWordByID.action(index)"
+                >{{index + 1}}. {{word.clue}}</div>
+                <br/>
+            </div>
+
         </div>
-        <br/>
-        <br/>
         <div id="board">
             <div
                 ng-repeat="tile in state.crossword.collection"
@@ -37,5 +39,15 @@
             </div>
             <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
         </div>
+        <br/>
+        <br/>
+        <div>
+            <div
+                class="button"
+                ng-click="state.ui.showAllTiles.action()"
+            >Solve the Board</div>
+        </div>
+        <br/>
+        <br/>
     </body>
 </html>

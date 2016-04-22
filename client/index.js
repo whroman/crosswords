@@ -11,8 +11,9 @@ angular
     const $scope = this;
 
     const { size, words } = processContent(content);
+    $scope.words = words;
     $scope.crossword = new CrosswordGrid(size.x, size.y);
-    words.forEach((item) => {
+    $scope.words.forEach((item) => {
         $scope.crossword.setWord(item.word, item.coords);
     });
 
@@ -25,6 +26,10 @@ angular
         17, // ctrl
         18  // alt
     ];
+
+    const focusTileByCoords = (x, y) => {
+        focus(`tile-${x}${y}`);
+    };
 
     $scope.onKeypress = ($event, tile) => {
         $event.preventDefault();
@@ -44,7 +49,7 @@ angular
 
         const nextTile = nextWord.getNextTile(x, y);
         currentWordID = nextWord.id;
-        focus(`tile-${nextTile.x}${nextTile.y}`);
+        focusTileByCoords(nextTile.x, nextTile.y);
     };
 
     $scope.ui = {
@@ -55,6 +60,13 @@ angular
                 if (!this.enabled) return;
                 $scope.crossword.setPlaceholders();
                 this.enabled = false;
+            }
+        },
+        focusWordByID: {
+            action (id) {
+                const word = $scope.crossword.words.get(id);
+                const { x, y } = word.collection[0];
+                focusTileByCoords(x, y);
             }
         }
     };
