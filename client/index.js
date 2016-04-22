@@ -3,7 +3,6 @@ import CrosswordGrid from './../src/models/CrosswordGrid';
 import content from './../fixtures/one.json';
 import processContent from './../src/services/processContent';
 import 'ng-focus-on';
-import './index.scss';
 
 angular
 .module('Crossword', ['focusOn'])

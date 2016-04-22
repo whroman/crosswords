@@ -1,0 +1,75 @@
+body {
+    text-align: center;
+}
+
+#clues {
+    float: left;
+    text-align: left;
+    width: 40%;
+}
+
+.clue {
+    cursor: pointer;
+    float: left;
+    clear: left;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 0 1em 0 0.5em;
+}
+
+.clue:hover {
+    background-color: #ccc;
+}
+
+.clue.selected {
+    background-color: #dbd;
+}
+
+#board {
+    float: left;
+    width: 60%;
+    font-family: monospace;
+    font-size: 14px;
+    display: inline-block
+}
+
+.tile {
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    margin: 0 -1px -1px 0;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #eee;
+    float: left;
+    position: relative;
+    z-index: 0;
+}
+
+.tile.nth {
+    clear: both;
+}
+
+.tile.is-in-use {
+    border: 1px solid #000;
+    z-index: 1;
+}
+
+.tile.is-in-use input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: transparent;
+}
+
+.tile.is-in-use.is-correct input {
+    background-color: #8c8;
+}
+
+.tile.is-in-use.is-incorrect input.ng-dirty {
+    background-color: #e88;
+}
+
+.tile.belongs-to-current-word {
+    background-color: #dbd;
+}
