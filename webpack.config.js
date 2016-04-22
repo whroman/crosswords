@@ -3,15 +3,26 @@ const webpack = require('webpack');
 const BASE_PATH = path.join(__dirname);
 const DIST_PATH = path.join(__dirname, 'public');
 
+const prodJS = new webpack.optimize.UglifyJsPlugin({
+    compress: {
+        warnings: false
+    },
+    minimize: true,
+    mangle: false
+});
+
 module.exports = {
   devtool: 'source-map',
   context: BASE_PATH,
   entry: './client/index.js',
   output: {
     path: DIST_PATH,
-    publicPath: 'public/',
+    publicPath: '/',
     filename: 'build.js'
   },
+  plugins: [
+    prodJS
+  ],
   module: {
     preLoaders: [
       {
@@ -38,6 +49,5 @@ module.exports = {
   },
   sassLoader: {
     includePaths: [path.resolve(__dirname, "./node_modules/foundation-sites")]
-  },
-  progress: true
+  }
 };

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack",
+    "build": "webpack --progress",
     "test": "babel-node node_modules/.bin/_mocha $(find ./src -name '*.spec.js')",
     "test:watch": "npm test -- --watch",
     "tw": "npm run test:watch",
