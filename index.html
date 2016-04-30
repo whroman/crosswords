@@ -2,13 +2,20 @@
     <head>
         <title>Crossword Trainer</title>
         <meta charset="UTF-8">
-        <script src='public/build.js'></script>
+        <script src='build.js'></script>
         <meta HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
         <link rel='stylesheet' href='public/foundation.min.css' />
         <link rel='stylesheet' href='public/index.css' />
         <meta charset="utf-8"/>
     </head>
     <body ng-controller="CrosswordCtrl as state">
+        <!-- <input
+          id='foo'
+          ng-keydown="state.bar.onKeydown($event)"
+          maxlength="6"
+          ng-model="state.bar.val"
+          type='text'
+        /> -->
         <div class="rainbow"></div>
         <div id="leftcolumn">
           <h2>Practice the colors…</h2>
@@ -52,6 +59,7 @@
                   ng-class="{
                       nth: tile.x % state.crossword.width === 0,
                       'is-in-use': tile.isInUse,
+                      'isCurrent': tile.isCurrent,
                       'is-correct': tile.isFulfilled() && state.ui.submitGame.hasOccurred,
                       'is-incorrect': !tile.isFulfilled() && state.ui.submitGame.hasOccurred,
                       'belongs-to-current-word': tile.belongsToCurrentWord,
@@ -64,6 +72,7 @@
                           ng-focus="state.ui.handleTileFocus(tile.words)"
                           focus-on="{{'tile-' + tile.x + tile.y}}"
                           ng-keyup="state.onKeypress($event, tile)"
+                          ng-keydown="state.onKeyfoo($event)"
                           placeholder="{{tile.placeholder}}"
                       />
                       <div

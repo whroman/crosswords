@@ -1,6 +1,7 @@
 body {
     text-align: center;
-    background-color: #fbfcfc;
+    /*background-color: #f1f0f0;*/
+    background-color: #444;
     background-image: url("img/bg-pattern.png");
     background-repeat:repeat;
     min-width: 1200px;
@@ -11,6 +12,22 @@ h2 {
   	font-size: 32px;
   	line-height: 1.5;
   	color: #2d414c;
+}
+
+#foo {
+    background-color: transparent;
+    position: absolute;
+    top: 272px;
+    letter-spacing: 3em;
+    width: 283px;
+    left: 541px;
+    z-index: 2;
+    height: 47px;
+    line-height: 47px;
+    padding-left: 1em;
+    border: 1px solid red;
+    font-family: monospace;
+    padding-left: 1.5em;
 }
 
 .rainbow {
@@ -231,9 +248,10 @@ h2 {
     cursor: pointer;
 }
 
-.tile.is-in-use input:focus {
+.tile.is-in-use.isCurrent input {
     transition: 0.2s ease-in-out;
     border: 2px solid #4e90f2;
+    background-color: red;
 }
 
 .tile.is-in-use input:hover {

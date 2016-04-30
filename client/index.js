@@ -7,8 +7,90 @@ import 'ng-focus-on';
 
 angular
 .module('Crossword', ['focusOn'])
-.controller('CrosswordCtrl', function CountCtrl(focus, $timeout) {
+.controller('CrosswordCtrl', function CountCtrl(focus, $timeout, $q) {
     const $scope = this;
+
+    this.bar = {
+        x: 0,
+        y: 3,
+        val: 'asdf  ',
+        wordLength: 6,
+        latinAlphabet: 'abcdefghijklmnopqrstuvwxyz'.toUpperCase(),
+        isInLatinAlphabet (character) {
+            return this.latinAlphabet.indexOf(character.toUpperCase()) > -1;
+        },
+        setCursor (node, index) {
+            $timeout(() => node.setSelectionRange(index, index), 0);
+        },
+        handleCharacter ($event) {
+            const { target, keyCode } = $event;
+            const character = String.fromCharCode(keyCode).toUpperCase();
+
+            if (this.isInLatinAlphabet(character)) {
+                $event.preventDefault();
+                const { selectionEnd } = target;
+
+                this.insertChar(selectionEnd, character);
+
+                if (this.val.length >= this.wordLength) {
+                    this.val = this.val.slice(0, this.wordLength);
+                }
+
+                const newCursorIndex = selectionEnd + 1;
+                const x = this.x + newCursorIndex;
+                setCurrentTile(x, this.y);
+                this.setCursor(target, newCursorIndex);
+            }
+        },
+        insertChar(inserIndex, newCharacter) {
+            const newVal = this.val.split('');
+            newVal.splice(inserIndex, 1, newCharacter);
+            this.val = newVal.join('').toUpperCase();
+        },
+        handleBackspace ($event) {
+            const { target } = $event;
+            const cursorIndex = target.selectionEnd - 1;
+            if (cursorIndex > -1) {
+                $event.preventDefault();
+                this.insertChar(cursorIndex, ' ');
+                setCurrentTile(cursorIndex, this.y);
+                this.setCursor(target, cursorIndex);
+            }
+        },
+        onKeydown ($event) {
+            const { target, keyCode, metaKey } = $event;
+            const { selectionEnd } = target;
+
+            console.log(keyCode, selectionEnd, this.wordLength);
+            const isBackspace = keyCode === 8;
+            if (isBackspace) return this.handleBackspace($event);
+
+            const isLeftArrow = keyCode === 37;
+            if (isLeftArrow) {
+                let x = selectionEnd - 1;
+                x = (x > -1) ? x : 0;
+                return setCurrentTile(x, this.y);
+            }
+
+            const isRightArrow = keyCode === 39;
+            if (isRightArrow) {
+                let x = selectionEnd + 1;
+                x = (x < this.wordLength) ? x : this.wordLength;
+                return setCurrentTile(x, this.y);
+            }
+
+            const mightBeValidCharacter = selectionEnd > -1 && metaKey === false;
+            if (mightBeValidCharacter) return this.handleCharacter($event);
+
+        }
+    };
+
+    function setCurrentTile(x, y) {
+        const tiles = $scope.crossword.collection;
+        tiles.forEach(tile => tile.isCurrent = false);
+        const tile = $scope.crossword.get(x, y);
+        tile.isCurrent = true;
+    }
 
     const { size, words } = processContent(content);
     $scope.crossword = new CrosswordGrid(size.x, size.y);
@@ -36,7 +118,8 @@ angular
         focus(`tile-${x}${y}`);
     };
 
-    $scope.onKeypress = ($event, tile) => {
+
+    function foo ($event, tile) {
         $event.preventDefault();
         tile.input = tile.input.toUpperCase();
         const { input, x, y } = tile;
@@ -46,8 +129,7 @@ angular
         if (keyIsBlackedListed || inputIsEmpty) return;
 
         const shouldCutInput = input.length > 1;
-        if (shouldCutInput) tile.input = input[input.length - 1];
-        tile.input = tile.input.toUpperCase();
+        if (shouldCutInput) tile.input = String.fromCharCode($event.keyCode).toUpperCase();
 
         let nextTile;
 
@@ -61,13 +143,39 @@ angular
         }
 
         focusTileByCoords(nextTile.x, nextTile.y);
+    }
+
+    $scope.queue = [];
+
+    $scope.isOccurring = false;
+
+
+    $scope.processQueue = () => {
+        $scope.isOccurring = true;
+        const items = $scope.queue.slice();
+        $scope.queue = [];
+        items.forEach((item) => {
+            foo(item.$event, item.tile);
+        });
+        if ($scope.queue.length > 0) {
+            console.log('HOLY SHIT')
+            $scope.processQueue();
+        }
+        $scope.isOccurring = false;
+    };
+
+    $scope.onKeypress = ($event, tile) => {
+        $scope.queue.push({ $event, tile });
+        console.log($scope.queue.length)
+        if ($scope.queue.length >= 1) {
+            $scope.processQueue();
+        }
     };
 
     $scope.ui = {
         currentWord: {
             id: false,
             set (id) {
-                console.log(id)
                 this.id = id;
                 $scope.crossword.collection.forEach((tile) => {
                     tile.belongsToCurrentWord = false;
