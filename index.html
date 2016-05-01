@@ -23,7 +23,7 @@
                               }
                           ]"
                           ng-click="state.ui.handleClueClick.action(word.id)"
-                      ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
+                      ><span class="clue-number">{{word.id}}.&nbsp;</span> {{word.clue}}</div>
                   </div>
               </div>
 
@@ -37,7 +37,7 @@
                               }
                           ]"
                           ng-click="state.ui.handleClueClick.action(word.id)"
-                      ><span class="clue-number">{{word.id}}.</span> {{word.clue}}</div>
+                      ><span class="clue-number">{{word.id}}.&nbsp;</span> {{word.clue}}</div>
                   </div>
               </div>
           </div>
@@ -45,7 +45,11 @@
 
         <div id="rightcolumn">
           <div id="board">
-              <div ng-if="state.ui.submitGame.hasOccurred && !state.ui.submitGame.isEditing" class="edit-cover" ></div>
+              <div
+                class="edit-cover"
+                ng-class="{ 'show' : state.ui.submitGame.hasOccurred && !state.ui.submitGame.isEditing }"
+
+              ></div>
 
               <div
                   ng-repeat="tile in state.crossword.collection"
@@ -90,13 +94,13 @@
               >{{ state.ui.showAllTiles.text }}</div>
 
               <div
-                  class="button button-submit-isActive"
+                  class="button button-submit"
                   ng-click="state.ui.submitGame.action()"
               >{{ state.ui.submitGame.text }}</div>
 
               <div
-                  class="button button-submit-isActive"
-                  ng-class="{ 'disabled': !state.ui.submitGame.hasOccurred }"
+                  class="button button-next-activity"
+                  ng-class="{ 'disabled': state.ui.submitGame.isEditing }"
                   ng-click="state.ui.nextActivity.action()"
               >Next Activity</div>
           </div>

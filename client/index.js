@@ -34,12 +34,12 @@ angular
 
     const setCurrentTile = (x, y) => {
         const { crossword } = $scope;
-        const tile = crossword.get(x, y);
-        if (tile && tile.isInUse) {
-            crossword.collection.forEach(tile => tile.isCurrent = false);
-            tile.isCurrent = true;
-            $scope.ui.tile.focusByCoords(tile.x, tile.y)
-        }
+        const currentTile = crossword.get(x, y);
+        crossword.collection.forEach(tile => tile.isCurrent = false);
+        if (!currentTile || !currentTile.isInUse) return;
+
+        currentTile.isCurrent = true;
+        $scope.ui.tile.focusByCoords(currentTile.x, currentTile.y)
     }
 
     $scope.ui = {
@@ -167,6 +167,7 @@ angular
                 } else {
                     this.enterEditMode();
                 }
+                setCurrentTile(null, null);
             },
             endGame () {
                 this.hasOccurred = true;
