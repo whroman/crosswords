@@ -1,7 +1,7 @@
 body {
     text-align: center;
-    /*background-color: #f1f0f0;*/
-    background-color: #444;
+    background-color: #f1f0f0;
+    /*background-color: #444;*/
     background-image: url("img/bg-pattern.png");
     background-repeat:repeat;
     min-width: 1200px;
@@ -12,22 +12,6 @@ h2 {
   	font-size: 32px;
   	line-height: 1.5;
   	color: #2d414c;
-}
-
-#foo {
-    background-color: transparent;
-    position: absolute;
-    top: 272px;
-    letter-spacing: 3em;
-    width: 283px;
-    left: 541px;
-    z-index: 2;
-    height: 47px;
-    line-height: 47px;
-    padding-left: 1em;
-    border: 1px solid red;
-    font-family: monospace;
-    padding-left: 1.5em;
 }
 
 .rainbow {
@@ -201,20 +185,6 @@ h2 {
     display: inline-block;
 }
 
-.tile {
-    box-sizing: border-box;
-    width: 48px;
-    height: 48px;
-    margin: 0 -1px -1px 0;
-    line-height: 48px;
-    text-align: center;
-    /*border: 1px solid #eee;*/
-    float: left;
-    position: relative;
-    z-index: 0;
-    text-transform: uppercase;
-}
-
 .word-number {
     position: absolute;
     top: 0;
@@ -226,15 +196,41 @@ h2 {
     line-height: 10px;
 }
 
+.tile {
+    box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    margin: 0 -1px -1px 0;
+    line-height: 48px;
+    text-align: center;
+    float: left;
+    position: relative;
+    z-index: 0;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    transition: 0.2s ease-in-out border;
+}
+
 .tile.nth {
     clear: both;
 }
 
 .tile.is-in-use {
     background-color: #ffffff;
-    border: solid 1px #eaeced;
     z-index: 1;
 }
+
+#board .tile.is-in-use:not(.isCurrent) {
+    border-color: #dadcdd;
+}
+
+.tile.is-in-use.isCurrent,
+.tile.is-in-use.isCurrent:hover,
+.tile.is-in-use:hover {
+    z-index: 2;
+    border-color: #4e90f2;
+}
+
 
 .tile.is-in-use input {
     width: 100%;
@@ -242,20 +238,10 @@ h2 {
     text-align: center;
     background-color: transparent;
     text-transform: uppercase;
-    border: 2px solid rgba(78,144,242,0);
     transition: 0.2s ease-in-out;
     box-shadow: none;
     cursor: pointer;
-}
-
-.tile.is-in-use.isCurrent input {
-    transition: 0.2s ease-in-out;
-    border: 2px solid #4e90f2;
-    background-color: red;
-}
-
-.tile.is-in-use input:hover {
-    border: 2px solid #4e90f2;
+    border: none;
 }
 
 .tile.is-in-use.is-correct input {

@@ -71,8 +71,7 @@
                           ng-model="tile.input"
                           ng-focus="state.ui.handleTileFocus(tile.words)"
                           focus-on="{{'tile-' + tile.x + tile.y}}"
-                          ng-keyup="state.onKeypress($event, tile)"
-                          ng-keydown="state.onKeyfoo($event)"
+                          ng-keydown="state.onKeypress($event, tile)"
                           placeholder="{{tile.placeholder}}"
                       />
                       <div
