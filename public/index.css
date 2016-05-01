@@ -31,7 +31,6 @@ h2 {
 }
 
 .button {
-  float: right;
   margin-left: 20px;
 }
 
@@ -47,20 +46,7 @@ h2 {
   border-radius: 22px;
   transition: 300ms ease-out;
   text-align: center;
-}
-
-.button-solve:hover {
-  font-size: 15px;
-  font-weight: 400;
-  font-family: "Source Sans Pro", sans-serif;
-  background: transparent;
-  border: 1px solid #6C7A81;
-  color: #6C7A81;
-  text-decoration: none;
-  padding: 12px 34px;
-  border-radius: 22px;
-  transition: 300ms ease-out;
-  text-align: center;
+  width: 200px;
 }
 
 .button-submit-isActive {
@@ -77,29 +63,11 @@ h2 {
 }
 
 .button-submit-isActive:hover {
-  font-size: 15px;
-  font-weight: 400;
-  font-family: "Source Sans Pro", sans-serif;
   background: #FF8126;
-  color: white;
-  text-decoration: none;
-  padding: 12px 34px;
-  border-radius: 22px;
-  transition: 300ms ease-out;
-  text-align: center;
 }
 
 .button-submit-isActive:active {
-  font-size: 15px;
-  font-weight: 400;
-  font-family: "Source Sans Pro", sans-serif;
   background: #F67716;
-  color: white;
-  text-decoration: none;
-  padding: 12px 34px;
-  border-radius: 22px;
-  transition: 300ms ease-out;
-  text-align: center;
 }
 
 #leftcolumn {

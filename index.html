@@ -81,15 +81,22 @@
           </div>
           <br>
           <div id="actions">
+
+              <div
+                  class="button button-solve"
+                  ng-click="state.ui.showAllTiles.action()"
+              >{{ state.ui.showAllTiles.text }}</div>
+
               <div
                   class="button button-submit-isActive"
                   ng-click="state.ui.submitGame.action()"
               >Submit my answers</div>
 
               <div
-                  class="button button-solve"
-                  ng-click="state.ui.showAllTiles.action()"
-              >{{ state.ui.showAllTiles.enabled ? "Show solutions" : "Hide solutions" }}</div>
+                  class="button button-submit-isActive"
+                  ng-class="{ 'disabled': !state.ui.submitGame.hasOccurred }"
+                  ng-click="state.ui.nextActivity.action()"
+              >Next Activity</div>
           </div>
         </div>
 

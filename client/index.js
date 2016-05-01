@@ -130,14 +130,17 @@ angular
         },
         showAllTiles: {
             enabled: true,
+            text: 'Show solutions',
             action () {
                 if (!this.enabled) {
                     this.enabled = true;
                     $scope.crossword.unsetPlaceholders();
-                    return;
+                } else {
+                    $scope.crossword.setPlaceholders();
+                    this.enabled = false;
                 }
-                $scope.crossword.setPlaceholders();
-                this.enabled = false;
+
+                this.text = this.enabled ? "Show solutions" : "Hide solutions";
             }
         },
         handleClueClick: {
@@ -162,7 +165,11 @@ angular
                     this.isVisible = false;
                 }, 2000);
             }
-
+        },
+        nextActivity: {
+            action () {
+                window.alert('Activity was completed.')
+            }
         }
     };
 
