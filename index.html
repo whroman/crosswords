@@ -44,7 +44,10 @@
         </div>
 
         <div id="rightcolumn">
-          <div id="board">
+          <div
+            id="board"
+            ng-class="{'edit-mode': state.ui.submitGame.hasOccurred }"
+          >
               <div
                 class="edit-cover"
                 ng-class="{ 'show' : state.ui.submitGame.hasOccurred && !state.ui.submitGame.isEditing }"
@@ -73,10 +76,6 @@
                           ng-keydown="state.ui.tile.onKeypress($event, tile)"
                           placeholder="{{tile.placeholder}}"
                       />
-                      <div
-                          class="word-number"
-                          ng-if="tile.isFirstInWord.length"
-                      >{{ tile.isFirstInWord[0] }}</div>
                   </div>
                   <div
                       class="word-number"

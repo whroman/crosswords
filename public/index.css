@@ -167,8 +167,8 @@ h2 {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 3px;
-    font-size: 10px;
+    padding: 4px;
+    font-size: 11px;
     font-weight:bolder;
     color: #6C7A81;
     line-height: 10px;
@@ -187,7 +187,7 @@ h2 {
     text-transform: uppercase;
     border: 1px solid transparent;
     transition: 0.2s ease-in-out border;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .tile.nth {
@@ -232,7 +232,7 @@ h2 {
   font-weight: bolder;
 }
 
-.tile.is-in-use.is-correct input + .word-number {
+#board.edit-mode .word-number {
   color: white;
 }
 
@@ -240,10 +240,6 @@ h2 {
   background-color: #FF7573;
   color: white;
   font-weight: bolder;
-}
-
-.tile.is-in-use.is-incorrect input + .word-number {
-  color: white;
 }
 
 .tile.belongs-to-current-word {
@@ -273,5 +269,5 @@ h2 {
 .edit-cover.show {
   z-index: 100;
   border-color: #999;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.3);
 }
