@@ -78,10 +78,12 @@ angular
             },
 
             onKeypress($event, tile) {
-                const { keyCode } = $event;
+                const { keyCode, shiftKey } = $event;
+                const { words } = $scope.crossword;
+                const { currentWord } = $scope.ui;
+
                 $timeout(() => {
                     $event.preventDefault();
-                    console.log(keyCode);
                     tile.input = tile.input.toUpperCase();
                     const { input, x, y } = tile;
 
@@ -90,12 +92,16 @@ angular
                         return setCurrentTile(...isNavKey(x, y));
                     }
 
-                    if (keyCode === 8) {
-                        // Backspace
-                        const { words } = $scope.crossword;
-                        const { currentWord } = $scope.ui;
-                        tile.input = '';
+                    const isBackspace = keyCode === 8;
+                    const isTab = keyCode === 9;
+                    if (isBackspace || (isTab && shiftKey)) {
+                        if (isBackspace) tile.input = '';
                         const nextTile = words.get(currentWord.id).getPreviousTile(x, y);
+                        return setCurrentTile(nextTile.x, nextTile.y);
+                    }
+
+                    if (isTab && !shiftKey) {
+                        const nextTile = words.get(currentWord.id).getNextTile(x, y);
                         return setCurrentTile(nextTile.x, nextTile.y);
                     }
 
