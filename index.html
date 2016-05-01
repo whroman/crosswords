@@ -45,6 +45,8 @@
 
         <div id="rightcolumn">
           <div id="board">
+              <div ng-if="state.ui.submitGame.hasOccurred && !state.ui.submitGame.isEditing" class="edit-cover" ></div>
+
               <div
                   ng-repeat="tile in state.crossword.collection"
                   class="tile"
@@ -90,7 +92,7 @@
               <div
                   class="button button-submit-isActive"
                   ng-click="state.ui.submitGame.action()"
-              >Submit my answers</div>
+              >{{ state.ui.submitGame.text }}</div>
 
               <div
                   class="button button-submit-isActive"
@@ -102,17 +104,5 @@
 
         <br/>
         <br/>
-
-        <div
-            ng-if="state.ui.successModal.isVisible"
-            class="modal"
-        >
-            <div class="modal-content">
-                <br/>
-                <h2>You did it!</h2>
-                <br/>
-            </div>
-        </div>
-
     </body>
 </html>

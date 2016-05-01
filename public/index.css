@@ -60,6 +60,7 @@ h2 {
   border-radius: 22px;
   transition: 300ms ease-out;
   text-align: center;
+  width: 200px;
 }
 
 .button-submit-isActive:hover {
@@ -148,6 +149,7 @@ h2 {
     font-family: monospace;
     font-size: 18px;
     display: inline-block;
+    position: relative;
 }
 
 .word-number {
@@ -218,17 +220,17 @@ h2 {
   font-weight: bolder;
 }
 
-.tile.is-in-use.is-correct input.ng-dirty + .word-number {
+.tile.is-in-use.is-correct input + .word-number {
   color: white;
 }
 
-.tile.is-in-use.is-incorrect input.ng-dirty {
+.tile.is-in-use.is-incorrect input {
   background-color: #FF7573;
   color: white;
   font-weight: bolder;
 }
 
-.tile.is-in-use.is-incorrect input.ng-dirty + .word-number {
+.tile.is-in-use.is-incorrect input + .word-number {
   color: white;
 }
 
@@ -236,26 +238,18 @@ h2 {
     background-color: #F3F8FE;
 }
 
-
 #actions {
     float: left;
     margin-top: 60px;
     width: 480px;
 }
 
-.modal {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
-    z-index: 1;
-    background-color: rgba(0,0,0,0.5);
-}
-
-.modal-content {
-    border-radius: 5px;
-    width: 80%;
-    margin: 80px auto 0 auto;
-    background-color: #fff;
+.edit-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.1);
 }

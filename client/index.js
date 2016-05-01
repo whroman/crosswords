@@ -151,19 +151,31 @@ angular
                 $scope.ui.tile.focusByCoords(x, y);
             }
         },
+        // editGame: {
+        //     isEditing: true,
+        //     action () {
+        //         this.isEditing
+        //     }
+        // },
         submitGame: {
             hasOccurred: false,
+            isEditing: true,
+            text: 'Submit answers',
             action () {
+                if (this.isEditing) {
+                    this.endGame();
+                } else {
+                    this.enterEditMode();
+                }
+            },
+            endGame () {
                 this.hasOccurred = true;
-            }
-        },
-        successModal: {
-            isVisible: false,
-            show () {
-                this.isVisible = true;
-                $timeout(() => {
-                    this.isVisible = false;
-                }, 2000);
+                this.isEditing = false;
+                this.text = 'Edit answers';
+            },
+            enterEditMode () {
+                this.isEditing = true;
+                this.text = 'Submit answers';
             }
         },
         nextActivity: {
