@@ -31,7 +31,7 @@ h2 {
 }
 
 .button {
-  margin-left: 20px;
+  margin: 0 10px;
   font-size: 15px;
   font-weight: 400;
   font-family: "Source Sans Pro", sans-serif;
@@ -248,8 +248,7 @@ h2 {
 
 #actions {
     float: left;
-    margin-top: 60px;
-    width: 480px;
+    width: 100%;
 }
 
 .edit-cover {

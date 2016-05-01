@@ -2,7 +2,7 @@
     <head>
         <title>Crossword Trainer</title>
         <meta charset="UTF-8">
-        <script src='build.js'></script>
+        <script src='public/build.js'></script>
         <meta HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
         <link rel='stylesheet' href='public/foundation.min.css' />
         <link rel='stylesheet' href='public/index.css' />
@@ -84,7 +84,7 @@
               </div>
               <h1 ng-if="state.crossword.words.isFulfilled()">Complete!</h1>
           </div>
-          <br>
+          <br/><br/><br/>
           <div id="actions">
 
               <div
@@ -103,6 +103,9 @@
                   ng-click="state.ui.nextActivity.action()"
               >Next Activity</div>
           </div>
+          <br/><br/><br/>
+          <div>You may navigate with arrow keys.</div>
+
         </div>
 
         <br/>
