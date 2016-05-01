@@ -9,13 +9,6 @@
         <meta charset="utf-8"/>
     </head>
     <body ng-controller="CrosswordCtrl as state">
-        <!-- <input
-          id='foo'
-          ng-keydown="state.bar.onKeydown($event)"
-          maxlength="6"
-          ng-model="state.bar.val"
-          type='text'
-        /> -->
         <div class="rainbow"></div>
         <div id="leftcolumn">
           <h2>Practice the colors…</h2>
@@ -55,7 +48,7 @@
               <div
                   ng-repeat="tile in state.crossword.collection"
                   class="tile"
-                  ng-click="state.ui.handleTileClick.action(tile)"
+                  ng-click="state.ui.tile.onClick(tile)"
                   ng-class="{
                       nth: tile.x % state.crossword.width === 0,
                       'is-in-use': tile.isInUse,
@@ -69,9 +62,9 @@
                       <input
                           type="text"
                           ng-model="tile.input"
-                          ng-focus="state.ui.handleTileFocus(tile.words)"
+                          ng-focus="state.ui.tile.onFocus(tile.words)"
                           focus-on="{{'tile-' + tile.x + tile.y}}"
-                          ng-keydown="state.onKeypress($event, tile)"
+                          ng-keydown="state.ui.tile.onKeypress($event, tile)"
                           placeholder="{{tile.placeholder}}"
                       />
                       <div

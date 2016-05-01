@@ -26,7 +26,6 @@ angular
     const firstWord = $scope.crossword.words.get(1);
 
     const inputKeyBlacklist = [
-        // 9,  // tab
         16, // shift
         17, // ctrl
         18  // alt
@@ -35,67 +34,88 @@ angular
 
     const setCurrentTile = (x, y) => {
         const { crossword } = $scope;
-        console.log('setCurrentTile', x, y)
         const tile = crossword.get(x, y);
         if (tile && tile.isInUse) {
             crossword.collection.forEach(tile => tile.isCurrent = false);
             tile.isCurrent = true;
-            focusTileByCoords(tile.x, tile.y)
+            $scope.ui.tile.focusByCoords(tile.x, tile.y)
         }
     }
 
-    const focusTileByCoords = (x, y) => {
-        focus(`tile-${x}${y}`);
-    };
-
-    const arrowMapping = {
-        // Left
-        37: (x, y) => [x - 1, y],
-        // Up
-        38: (x, y) => [x, y - 1],
-        // Right
-        39: (x, y) => [x + 1, y],
-        // Down
-        40: (x, y) => [x, y + 1],
-    };
-
-    $scope.onKeypress = ($event, tile) => {
-        const { keyCode } = $event;
-        $timeout(() => {
-            $event.preventDefault();
-            tile.input = tile.input.toUpperCase();
-            const { input, x, y } = tile;
-
-            console.log('isArrowKey', keyCode)
-            const isArrowKey = arrowMapping[keyCode];
-            if (isArrowKey) {
-                console.log('isArrowKey', keyCode)
-                return setCurrentTile(...isArrowKey(x, y));
-            }
-
-            const keyIsBlackedListed = inputKeyBlacklist.indexOf(keyCode) > -1;
-            const inputIsEmpty = input.length === 0;
-            if (keyIsBlackedListed || inputIsEmpty) return;
-
-            const shouldCutInput = input.length > 1;
-            if (shouldCutInput) tile.input = String.fromCharCode(keyCode).toUpperCase();
-
-            let nextTile;
-
-            if (tile.isLastInWord.indexOf($scope.ui.currentWord.id) > -1) {
-                let nextWord = $scope.crossword.words.get($scope.ui.currentWord.id + 1);
-                if (!nextWord) nextWord = $scope.crossword.words.get(1);
-                nextTile = nextWord.collection[0];
-                $scope.ui.currentWord.set(nextWord.id);
-            } else {
-                nextTile = $scope.crossword.words.get($scope.ui.currentWord.id).getNextTile(x, y);
-            }
-
-            setCurrentTile(nextTile.x, nextTile.y);
-        }, 0);
-    };
-
     $scope.ui = {
+        tile: {
+            focusByCoords(x, y) {
+                focus(`tile-${x}${y}`);
+            },
+            navigationMapping: {
+                // Left
+                37: (x, y) => [x - 1, y],
+                // Up
+                38: (x, y) => [x, y - 1],
+                // Right
+                39: (x, y) => [x + 1, y],
+                // Down
+                40: (x, y) => [x, y + 1],
+            },
+
+            onKeypress($event, tile) {
+                const { keyCode } = $event;
+                $timeout(() => {
+                    $event.preventDefault();
+                    tile.input = tile.input.toUpperCase();
+                    const { input, x, y } = tile;
+
+                    const isNavKey = this.navigationMapping[keyCode];
+                    if (isNavKey) {
+                        return setCurrentTile(...isNavKey(x, y));
+                    }
+
+                    const keyIsBlackedListed = inputKeyBlacklist.indexOf(keyCode) > -1;
+                    const inputIsEmpty = input.length === 0;
+                    if (keyIsBlackedListed || inputIsEmpty) {
+                        setCurrentTile(x, y);
+                        return;
+                    }
+
+                    const shouldCutInput = input.length > 1;
+                    if (shouldCutInput) tile.input = String.fromCharCode(keyCode).toUpperCase();
+
+                    let nextTile;
+
+                    if (tile.isLastInWord.indexOf($scope.ui.currentWord.id) > -1) {
+                        let nextWord = $scope.crossword.words.get($scope.ui.currentWord.id + 1);
+                        if (!nextWord) nextWord = $scope.crossword.words.get(1);
+                        nextTile = nextWord.collection[0];
+                        $scope.ui.currentWord.set(nextWord.id);
+                    } else {
+                        nextTile = $scope.crossword.words.get($scope.ui.currentWord.id).getNextTile(x, y);
+                    }
+
+                    setCurrentTile(nextTile.x, nextTile.y);
+                }, 0);
+            },
+
+            onFocus (words) {
+                const wordIndex = words.indexOf($scope.ui.currentWord.id);
+                if (wordIndex === -1) {
+                    $scope.ui.currentWord.set(words[0]);
+                }
+            },
+
+            onClick (tile) {
+                let id = tile.words[0];
+                const wordTwo = tile.words[1];
+                const shouldSetSecondWord = (
+                    $scope.ui.currentWord.id === id &&
+                    wordTwo
+                );
+                if (shouldSetSecondWord) id = wordTwo;
+                setCurrentTile(tile.x, tile.y);
+                $scope.ui.currentWord.set(id);
+            },
+
+        },
+
         currentWord: {
             id: false,
             set (id) {
@@ -125,26 +145,7 @@ angular
                 $scope.ui.currentWord.set(id);
                 const word = $scope.crossword.words.get(id);
                 const { x, y } = word.collection[0];
-                focusTileByCoords(x, y);
-            }
-        },
-        handleTileClick: {
-            action (tile) {
-                let id = tile.words[0];
-                const wordTwo = tile.words[1];
-                const shouldSetSecondWord = (
-                    $scope.ui.currentWord.id === id &&
-                    wordTwo
-                );
-                if (shouldSetSecondWord) id = wordTwo;
-                setCurrentTile(tile.x, tile.y);
-                $scope.ui.currentWord.set(id);
-            }
-        },
-        handleTileFocus (words) {
-            const wordIndex = words.indexOf($scope.ui.currentWord.id);
-            if (wordIndex === -1) {
-                $scope.ui.currentWord.set(words[0]);
+                $scope.ui.tile.focusByCoords(x, y);
             }
         },
         submitGame: {
@@ -167,7 +168,7 @@ angular
 
     $scope.ui.currentWord.set(firstWord.id);
     const firstTile = firstWord.collection[0];
-    focusTileByCoords(firstTile.x, firstTile.y);
+    setCurrentTile(firstTile.x, firstTile.y);
 
 });
 

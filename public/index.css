@@ -115,8 +115,9 @@ h2 {
     text-align: left;
     border-radius: 4px;
     background-color: #ffffff;
-    border: solid 1px #eaeced;
-    padding-bottom: 20px;
+    border: solid 1px #dadcdd;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .clue-set {
@@ -147,15 +148,17 @@ h2 {
     font-family: SourceSansPro-Regular;
   	font-size: 15px;
   	line-height: 1.6;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #eaeced;
 }
 
-.clue:hover {
-    background-color: rgba(235, 236, 237, 0.15);
-
+.clue-set-item:first-of-type .clue {
+  border-top-width: 1px;
 }
 
-.clue.selected {
-    background-color: rgba(243, 248, 254, 0.4);
+.clue:hover, .clue.selected {
+    background-color: rgba(243,248,254, 1);
 }
 
 .clue-number {
@@ -165,12 +168,6 @@ h2 {
 .clue-set-item {
   float: left;
   width: 100%;
-  border-bottom: 1px solid #f7f7f8;
-}
-
-.clue-set-item:last-of-type {
-  border: none;
-  margin-bottom: 5px;
 }
 
 #rightcolumn {
@@ -226,11 +223,14 @@ h2 {
 
 .tile.is-in-use.isCurrent,
 .tile.is-in-use.isCurrent:hover,
-.tile.is-in-use:hover {
-    z-index: 2;
+#board .tile.is-in-use:not(.isCurrent):hover {
     border-color: #4e90f2;
+    z-index: 2;
+    box-shadow: inset 0 0 2px #4e90f2;
 }
 
+.tile.is-in-use.isCurrent {
+}
 
 .tile.is-in-use input {
     width: 100%;
