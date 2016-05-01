@@ -36,6 +36,20 @@ export default class Word {
         return tile;
     }
 
+    getPreviousTile (x, y) {
+        const nextXTile = this.get(x - 1, y);
+        const nextYTile = this.get(x, y - 1);
+        if (nextXTile) return nextXTile;
+        if (nextYTile) return nextYTile;
+
+        for (let iter = 0; iter < this.collection.length; iter++) {
+            const tile = this.collection[iter];
+            if (!tile.isFilled()) return tile;
+        }
+
+        return this.collection[0];
+    }
+
     getNextTile (x, y) {
         const nextXTile = this.get(x + 1, y);
         const nextYTile = this.get(x, y + 1);

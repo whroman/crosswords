@@ -48,6 +48,7 @@ angular
                 focus(`tile-${x}${y}`);
             },
             navigationMapping: {
+
                 // Left
                 37: (x, y) => [x - 1, y],
                 // Up
@@ -58,16 +59,44 @@ angular
                 40: (x, y) => [x, y + 1],
             },
 
+            setNextTile(tile) {
+                const { x, y } = tile;
+                const { words } = $scope.crossword;
+                const { currentWord } = $scope.ui;
+                let nextTile;
+                const isLastTileInWord = tile.isLastInWord.indexOf(currentWord.id) > -1;
+                if (isLastTileInWord) {
+                    let nextWord = words.get(currentWord.id + 1);
+                    if (!nextWord) nextWord = words.get(1);
+                    nextTile = nextWord.collection[0];
+                    currentWord.set(nextWord.id);
+                } else {
+                    nextTile = words.get(currentWord.id).getNextTile(x, y);
+                }
+
+                setCurrentTile(nextTile.x, nextTile.y);
+            },
+
             onKeypress($event, tile) {
                 const { keyCode } = $event;
                 $timeout(() => {
                     $event.preventDefault();
+                    console.log(keyCode);
                     tile.input = tile.input.toUpperCase();
                     const { input, x, y } = tile;
 
                     const isNavKey = this.navigationMapping[keyCode];
                     if (isNavKey) {
                         return setCurrentTile(...isNavKey(x, y));
+                    }
+
+                    if (keyCode === 8) {
+                        // Backspace
+                        const { words } = $scope.crossword;
+                        const { currentWord } = $scope.ui;
+                        tile.input = '';
+                        const nextTile = words.get(currentWord.id).getPreviousTile(x, y);
+                        return setCurrentTile(nextTile.x, nextTile.y);
                     }
 
                     const keyIsBlackedListed = inputKeyBlacklist.indexOf(keyCode) > -1;
@@ -80,18 +109,7 @@ angular
                     const shouldCutInput = input.length > 1;
                     if (shouldCutInput) tile.input = String.fromCharCode(keyCode).toUpperCase();
 
-                    let nextTile;
-
-                    if (tile.isLastInWord.indexOf($scope.ui.currentWord.id) > -1) {
-                        let nextWord = $scope.crossword.words.get($scope.ui.currentWord.id + 1);
-                        if (!nextWord) nextWord = $scope.crossword.words.get(1);
-                        nextTile = nextWord.collection[0];
-                        $scope.ui.currentWord.set(nextWord.id);
-                    } else {
-                        nextTile = $scope.crossword.words.get($scope.ui.currentWord.id).getNextTile(x, y);
-                    }
-
-                    setCurrentTile(nextTile.x, nextTile.y);
+                    this.setNextTile(tile);
                 }, 0);
             },
 
